@@ -2,33 +2,34 @@ package dev.matheus.sistemarh.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
-@Table
+@Table(name = "Users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private long id;
+    @Column(unique = true,  updatable = false)
+    private UUID id;
 
-    @Column
-    @NotBlank
+    @Column(nullable = false)
+    @NonNull
     private String firstName;
 
-    @Column
-    @NotBlank
+    @Column(nullable = false)
+    @NonNull
     private String lastName;
 
-    @Column
+    @Column(nullable = false)
     @Email
-    @NotBlank
+    @NonNull
     private String email;
 }
